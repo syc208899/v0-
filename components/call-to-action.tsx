@@ -1,10 +1,8 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Phone, Mail, MessageSquare } from "lucide-react"
+import Image from "next/image"
 
 export default function CallToAction() {
   const [isVisible, setIsVisible] = useState(false)
@@ -65,11 +63,11 @@ export default function CallToAction() {
           </button>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-            <ContactItem icon={<Phone className="h-5 w-5" />} label="合作咨询热线" value="400-123-4567" />
+            <ContactItem label="咨询热线" value="15242004800" />
 
-            <ContactItem icon={<MessageSquare className="h-5 w-5" />} label="专属合作微信" value="HuanFangPai" />
+            <ContactItem label="专属合作微信" qrCode="/images/zhangchengyu-wechat-qr.png" />
 
-            <ContactItem icon={<Mail className="h-5 w-5" />} label="商务邮箱" value="biz@huanfangpai.com" />
+            <ContactItem label="焕房派小程序" value="敬请期待" />
           </div>
         </motion.div>
 
@@ -87,22 +85,29 @@ export default function CallToAction() {
 }
 
 function ContactItem({
-  icon,
   label,
   value,
+  qrCode,
 }: {
-  icon: React.ReactNode
   label: string
-  value: string
+  value?: string
+  qrCode?: string
 }) {
   return (
-    <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-lg p-3 shadow-md hover:shadow-lg transition-all">
-      <div className="rounded-full bg-gradient-to-r from-blue-50 to-purple-50 p-2 flex items-center justify-center text-gray-700">
-        {icon}
-      </div>
-      <div className="text-left">
-        <p className="text-xs text-gray-600">{label}</p>
-        <p className="text-sm text-gray-800">{value}</p>
+    <div className="flex flex-col items-center justify-center bg-white border border-gray-200 rounded-lg p-4 shadow-md hover:shadow-lg transition-all min-h-[120px]">
+      <div className="text-center">
+        <p className="text-base font-medium text-gray-800 mb-2 whitespace-nowrap">{label}</p>
+        {qrCode ? (
+          <Image
+            src={qrCode || "/placeholder.svg"}
+            alt="微信二维码"
+            width={80}
+            height={80}
+            className="rounded-md mx-auto"
+          />
+        ) : (
+          <p className="text-sm text-gray-600">{value}</p>
+        )}
       </div>
     </div>
   )

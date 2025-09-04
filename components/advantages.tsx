@@ -93,50 +93,6 @@ export default function Advantages() {
             keywords={["专业诊断", "空间焕新", "顶级视觉呈现"]}
           />
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-16"
-        >
-          <h3 className="text-2xl md:text-3xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow-sm mb-8 text-center">
-            售前美化Q&A
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <QAItem
-              question="售前美化具体包含哪些内容？"
-              answer="包括但不限于空间改造（如拆除隔断）、硬件更换（灯具/开关）、墙面粉刷、深度保洁、家具及软装配饰等来提升居住感！"
-              delay={0.9}
-            />
-            <QAItem
-              question="美化后的售卖周期是多久？"
-              answer="焕房派平均售卖周期为43天，远低于市场平均水平，大幅提高您的资金周转效率。"
-              delay={1.0}
-            />
-            <QAItem
-              question="美化费用由谁承担？"
-              answer="业主全程不需要支付任何费用，只需在成交后正常支付中介费即可！"
-              delay={1.1}
-            />
-            <QAItem
-              question="如何保障资金安全？"
-              answer="房款全部转到业主银行卡之后再转给公司（不过户不公证）！"
-              delay={1.2}
-            />
-            <QAItem
-              question="付定金吗？合同签多久？"
-              answer="售前美化利润较低，不付定金！签约时间根据价格、不利因素等情况一般为3-6个月！"
-              delay={1.3}
-            />
-            <QAItem
-              question="如果卖不掉怎么办？"
-              answer="焕房派的核心原则是极速售卖，并不是极致利润，所以我们会对售卖周期有严格的把控！如果合同期内没卖掉，硬装部分留下，其他拿走！"
-              delay={1.4}
-            />
-          </div>
-        </motion.div>
       </div>
     </section>
   )
@@ -183,59 +139,6 @@ function AdvantageCard({
           {renderDescription()}
         </CardContent>
       </Card>
-    </motion.div>
-  )
-}
-
-function QAItem({
-  question,
-  answer,
-  delay,
-}: {
-  question: string
-  answer: string
-  delay: number
-}) {
-  const [isVisible, setIsVisible] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-
-  useEffect(() => {
-    setIsVisible(true)
-  }, [])
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-      transition={{ duration: 0.8, delay }}
-    >
-      <div
-        className="bg-white border border-gray-200 rounded-lg overflow-hidden cursor-pointer shadow-md hover:shadow-lg transition-all"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <div className="p-4 flex justify-between items-center">
-          <h4 className="font-medium text-gray-800">{question}</h4>
-          <div className={`transform transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-purple-600"
-            >
-              <path d="m6 9 6 6 6-6" />
-            </svg>
-          </div>
-        </div>
-        <div className={`overflow-hidden transition-all duration-300 ${isOpen ? "max-h-40" : "max-h-0"}`}>
-          <div className="p-4 pt-0 text-gray-700 text-sm border-t border-gray-100">{answer}</div>
-        </div>
-      </div>
     </motion.div>
   )
 }

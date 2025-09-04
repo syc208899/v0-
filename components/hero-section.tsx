@@ -132,7 +132,7 @@ export default function HeroSection() {
                     <div className="aspect-[1/1] relative">
                       <video
                         ref={videoRef}
-                        src="/videos/huanfang-animation.mp4"
+                        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/huanfang-animation_20250511_14072180-mIqZQiRrCM6rUTpPR1vQAwtMmWRGXs.mp4"
                         className="w-full h-full object-cover"
                         autoPlay
                         loop
@@ -171,13 +171,20 @@ function StatsCard({
   delay: number
 }) {
   const [isVisible, setIsVisible] = useState(false)
+  const isMobile = useMobile()
 
   useEffect(() => {
     setIsVisible(true)
   }, [])
 
-  // 特殊处理"佣金立结"标题
+  // Update the renderTitle function to handle mobile vs desktop
   const renderTitle = () => {
+    if (isMobile) {
+      // On mobile, display all titles on a single line
+      return <p className="text-gray-600 text-sm mb-1 text-center">{title}</p>
+    }
+
+    // On desktop, keep the current line break logic
     if (title === "佣金立结") {
       return (
         <p className="text-gray-600 text-sm mb-1">
@@ -187,9 +194,48 @@ function StatsCard({
         </p>
       )
     }
+    if (title === "带看转化率") {
+      return (
+        <p className="text-gray-600 text-sm mb-1 text-center">
+          带看
+          <br />
+          转化率
+        </p>
+      )
+    }
+    if (title === "房源咨询量") {
+      return (
+        <p className="text-gray-600 text-sm mb-1 text-center">
+          房源
+          <br />
+          咨询量
+        </p>
+      )
+    }
     return <p className="text-gray-600 text-sm mb-1">{title}</p>
   }
 
+  if (isMobile) {
+    // Mobile layout: vertical centered layout
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+        transition={{ duration: 0.8, delay }}
+        className="bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl p-4 shadow-md hover:shadow-lg transition-all"
+      >
+        <div className="flex flex-col items-center text-center space-y-2">
+          <div className="rounded-full bg-gray-50 p-3 flex items-center justify-center">{icon}</div>
+          {renderTitle()}
+          <p className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            {value}
+          </p>
+        </div>
+      </motion.div>
+    )
+  }
+
+  // Desktop layout: horizontal layout (unchanged)
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
